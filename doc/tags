@@ -1,0 +1,11 @@
+$VIMRUNTIME/doc/pi_netrw.txt	xdg_open.txt	/*$VIMRUNTIME\/doc\/pi_netrw.txt*
+g:xdg_open_command	xdg_open.txt	/*g:xdg_open_command*
+g:xdg_open_match	xdg_open.txt	/*g:xdg_open_match*
+gx	xdg_open.txt	/*gx*
+xdg-open	xdg_open.txt	/*xdg-open*
+xdg-open-functions	xdg_open.txt	/*xdg-open-functions*
+xdg-open-mappings	xdg_open.txt	/*xdg-open-mappings*
+xdg-open-options	xdg_open.txt	/*xdg-open-options*
+xdg_open#open	xdg_open.txt	/*xdg_open#open*
+xdg_open#open_url	xdg_open.txt	/*xdg_open#open_url*
+xdg_open.txt	xdg_open.txt	/*xdg_open.txt*
