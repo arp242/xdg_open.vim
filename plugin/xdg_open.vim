@@ -1,6 +1,6 @@
 " xdg_open.vim: Run xdg-open from Vim; replaces netrw's gx.
 "
-" http://code.arp242.net/xdg-open.vim
+" http://arp242.net/code/xdg-open.vim
 "
 " See the bottom of this file for copyright & license information.
 "
@@ -39,21 +39,29 @@ endif
 "##########################################################
 " Functions
 
-
 " Open word under cursor or selection
 fun! xdg_open#open(source) abort
-	return s:run(s:get_text(a:source))
+	return s:open(a:source, 0)
 endfun
 
 
 " Like open(), but give an error if the word doesn't look like an url
 fun! xdg_open#open_url(source) abort
+	return s:open(a:source, 1)
+endfun
+
+
+fun s:open(source, strict)
 	let l:maybe_url = s:get_text(a:source)
-	" TODO: Make this test better
-	if l:maybe_url[:3] != 'http'
-		echoerr "Not an url: " . l:maybe_url
-		return
+	if l:maybe_url !~ '^\w\{3,32}:\/\/'
+		if a:strict
+			echoerr 'Not an url: ' . l:maybe_url
+			return
+		else
+			let l:maybe_url = 'http://' . l:maybe_url
+		endif
 	endif
+
 	return s:run(l:maybe_url)
 endfun
 
@@ -61,23 +69,37 @@ endfun
 " Run the command
 fun! s:run(path) abort
 	" TODO: Make & an option?
-	call system(g:xdg_open_command . ' ' .  shellescape(a:path) . ' &')
+	call system(printf('%s %s &', g:xdg_open_command, shellescape(a:path)))
 endfun
 
 
 " Get text to open
 fun s:get_text(source)
+	" Word under cursor
 	if a:source == 0 || a:source == '0'
-		return expand(g:xdg_open_match)
+		let l:text = expand(g:xdg_open_match)
+	" Visual selection
 	elseif a:source == 1 || a:source == '1'
 		let l:save = @@
-		normal gvy
+		normal! gvy
 		let l:text = substitute(@@, '\v(^\s*|\s*$)', '', 'g')
 		let @@ = l:save
 		return l:text
+	" Return as-is
 	else
-		return a:source
+		let l:text = a:source
 	endif
+
+	" Remove wrapping quotes etc.
+	let l:wrappers = ['""', "''", '()', '[]', '{}', '**', '__']
+
+	for l:w in l:wrappers
+		if l:text[0] == l:w[0] && l:text[len(l:text)-1] == l:w[1]
+			let l:text = l:text[1:len(l:text)-2]
+		endif
+	endfor
+
+	return l:text
 endfun
 
 

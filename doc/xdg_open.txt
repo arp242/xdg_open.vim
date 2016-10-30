@@ -1,7 +1,7 @@
 *xdg_open.txt* Run xdg-open from Vim; re-implements netrw's gx.
 
 ==============================================================================
-INTRODUCTION                                                     *xdg-open*
+INTRODUCTION                                                        *xdg-open*
 
 Re-implements netrw's |gx| command with a call to {xdg-open} (or a similar
 tool of your choosing).
@@ -20,7 +20,7 @@ compatibility was not a primary goal. Notable changes are:
 
 - The shell command is run in the background. This is much more sane.
 
-Can I disable netrw completly? ~
+Can I disable netrw completely? ~
 - To only disable gx-related functionality: >
   let g:netrw_nogx = 1
 <
@@ -38,27 +38,34 @@ Can I disable netrw completly? ~
 
 
 ==============================================================================
-OPTIONS                                                  *xdg-open-options*
+OPTIONS                                                     *xdg-open-options*
 
-*g:xdg_open_command*  (string, default: |g:netrw_browsex_viewer| or 'xdg-open')
+*g:xdg_open_command*  (string, default: |g:netrw_browsex_viewer| or
+                       'xdg-open')
 
 Command to run. The file is appended automatically.
 
-*g:xdg_open_match*             (string, default: |g:netrw_gx| or '<cWORD>')
+*g:xdg_open_match*                (string, default: |g:netrw_gx| or '<cWORD>')
 
 See |expand()|.
 
+*g:xdg_open_no_map*                               (string, default: undefined)
+
+Don't map any keys when loading the plugin.
+
 ==============================================================================
-MAPPINGS                                                *xdg-open-mappings*
+MAPPINGS                                                   *xdg-open-mappings*
 
-                                   *gx*
+                           *gx*
+gx			Try to open the file under the cursor.
 
-Try to open the file under the cursor.
+                           *v_gx*
+{Visual}gx			Try to open the current visual selection.
 
 ==============================================================================
 FUNCTIONS                                                 *xdg-open-functions*
 
-xdg_open#open({source})                                    *xdg_open#open*
+xdg_open#open({source})                                        *xdg_open#open*
 
     Valid values for the {source} parameter:
 
@@ -66,10 +73,10 @@ xdg_open#open({source})                                    *xdg_open#open*
     - 1: Use the last visual selection.
     - any other string: Use the string as-is.
 
-xdg_open#open_url({source})                            *xdg_open#open_url*
+xdg_open#open_url({source})                                *xdg_open#open_url*
 
-    Like |xdg_open#open|, but displays an error if the input isn't an URL.
-
+    Like |xdg_open#open|, but displays an error if the input doesn't look like
+    an URL.
 
 
 vim:tw=78:ts=8:ft=help:norl:expandtab
