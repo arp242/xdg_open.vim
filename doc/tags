@@ -4,10 +4,9 @@ g:xdg_open_match	xdg_open.txt	/*g:xdg_open_match*
 g:xdg_open_no_map	xdg_open.txt	/*g:xdg_open_no_map*
 gx	xdg_open.txt	/*gx*
 v_gx	xdg_open.txt	/*v_gx*
-xdg-open	xdg_open.txt	/*xdg-open*
-xdg-open-functions	xdg_open.txt	/*xdg-open-functions*
-xdg-open-mappings	xdg_open.txt	/*xdg-open-mappings*
-xdg-open-options	xdg_open.txt	/*xdg-open-options*
 xdg_open#open	xdg_open.txt	/*xdg_open#open*
 xdg_open#open_url	xdg_open.txt	/*xdg_open#open_url*
+xdg_open-functions	xdg_open.txt	/*xdg_open-functions*
+xdg_open-mappings	xdg_open.txt	/*xdg_open-mappings*
+xdg_open-options	xdg_open.txt	/*xdg_open-options*
 xdg_open.txt	xdg_open.txt	/*xdg_open.txt*

@@ -1,6 +1,6 @@
 " xdg_open.vim: Run xdg-open from Vim; replaces netrw's gx.
 "
-" http://arp242.net/code/xdg-open.vim
+" http://arp242.net/code/xdg_open.vim
 "
 " See the bottom of this file for copyright & license information.
 "
@@ -91,9 +91,7 @@ fun s:get_text(source)
 	endif
 
 	" Remove wrapping quotes etc.
-	let l:wrappers = ['""', "''", '()', '[]', '{}', '**', '__']
-
-	for l:w in l:wrappers
+	for l:w in ['""', "''", '()', '[]', '{}', '**', '__']
 		if l:text[0] == l:w[0] && l:text[len(l:text)-1] == l:w[1]
 			let l:text = l:text[1:len(l:text)-2]
 		endif
