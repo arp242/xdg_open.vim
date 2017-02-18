@@ -1,4 +1,4 @@
-[![This project is considered stable](https://img.shields.io/badge/Status-stable-green.svg)](https://arp242.net/status/stable)
+[![This project is considered finished](https://img.shields.io/badge/Status-finished-green.svg)](https://arp242.net/status/finished)
 
 Re-implements netrw's `gx` command with a call to `xdg-open` (or a similar
 tool of your choosing).
@@ -8,7 +8,6 @@ other than netrw.
 
 Is this fully compatible with netrw?
 ------------------------------------
-
 It should be for most purposes, but feature-for-feature (or bug-for-bug)
 compatibility was not a primary goal. Notable changes are:
 

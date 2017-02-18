@@ -1,5 +1,8 @@
 *xdg_open.txt* Run xdg-open from Vim; re-implements netrw's gx.
 
+==============================================================================
+INTRODUCTION                                                        *xdg_open*
+
 Re-implements netrw's |gx| command with a call to {xdg-open} (or a similar
 tool of your choosing).
 
