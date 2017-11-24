@@ -44,12 +44,10 @@ fun! xdg_open#open(source) abort
 	return s:open(a:source, 0)
 endfun
 
-
 " Like open(), but give an error if the word doesn't look like an url
 fun! xdg_open#open_url(source) abort
 	return s:open(a:source, 1)
 endfun
-
 
 fun s:open(source, strict)
 	let l:maybe_url = s:get_text(a:source)
@@ -76,10 +74,10 @@ endfun
 " Get text to open
 fun s:get_text(source)
 	" Word under cursor
-	if a:source == 0 || a:source == '0'
+	if a:source is 0
 		let l:text = expand(g:xdg_open_match)
 	" Visual selection
-	elseif a:source == 1 || a:source == '1'
+	elseif a:source is 1
 		let l:save = @@
 		normal! gvy
 		let l:text = substitute(@@, '\v(^\s*|\s*$)', '', 'g')

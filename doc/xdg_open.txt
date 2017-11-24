@@ -37,6 +37,11 @@ Can I disable netrw completely? ~
   You will need write permissions here (e.g. run it as root). Unfortunately
   you will nee to re-run this after every upgrade.
 
+What about plugins that depend on netrw? ~
+
+This plugin defines `netrw#BrowseX()`  and `netrw#NetrwBrowseX()`. Plugins
+that depend on it (such as fugitive.vim) should continue to work.
+
 
 ==============================================================================
 OPTIONS                                                     *xdg_open-options*
