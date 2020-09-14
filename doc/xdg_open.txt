@@ -79,10 +79,4 @@ xdg_open#open({source})                                        *xdg_open#open*
     - 1: Use the last visual selection.
     - any other string: Use the string as-is.
 
-xdg_open#open_url({source})                                *xdg_open#open_url*
-
-    Like |xdg_open#open|, but displays an error if the input doesn't look like
-    an URL.
-
-
 vim:tw=78:ts=8:ft=help:norl:expandtab

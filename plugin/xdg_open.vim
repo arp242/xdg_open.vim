@@ -41,35 +41,19 @@ endif
 
 " Open word under cursor or selection
 fun! xdg_open#open(source) abort
-	return s:open(a:source, 0)
+	return s:open(a:source)
 endfun
 
-" Like open(), but give an error if the word doesn't look like an url
-fun! xdg_open#open_url(source) abort
-	return s:open(a:source, 1)
+fun! s:open(source) abort
+	let l:file_location = s:get_text(a:source)
+	return s:run(l:file_location)
 endfun
-
-fun s:open(source, strict)
-	let l:maybe_url = s:get_text(a:source)
-	if l:maybe_url !~ '^\w\{3,32}:\/\/'
-		if a:strict
-			echoerr 'Not an url: ' . l:maybe_url
-			return
-		else
-			let l:maybe_url = 'http://' . l:maybe_url
-		endif
-	endif
-
-	return s:run(l:maybe_url)
-endfun
-
 
 " Run the command
 fun! s:run(path) abort
 	" TODO: Make & an option?
 	call system(printf('%s %s &', g:xdg_open_command, shellescape(a:path)))
 endfun
-
 
 " Get text to open
 fun s:get_text(source)
