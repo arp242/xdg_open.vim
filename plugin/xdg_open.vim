@@ -72,7 +72,7 @@ endfun
 
 
 " Get text to open
-fun s:get_text(source)
+fun s:get_text(source) abort
 	" Word under cursor
 	if a:source is 0
 		let l:text = expand(g:xdg_open_match)
