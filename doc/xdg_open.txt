@@ -63,10 +63,10 @@ Don't map any keys when loading the plugin.
 MAPPINGS                                                   *xdg_open-mappings*
 
                            *gx*
-gx			Try to open the file under the cursor.
+gx                                 Try to open the file under the cursor.
 
                            *v_gx*
-{Visual}gx			Try to open the current visual selection.
+{Visual}gx                         Try to open the current visual selection.
 
 ==============================================================================
 FUNCTIONS                                                 *xdg_open-functions*
