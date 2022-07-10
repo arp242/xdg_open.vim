@@ -62,9 +62,6 @@ OPTIONS                                                     *xdg_open-options*
 *g:xdg_open_no_map*
         Set to `1` to not map any keys by default.
 
-*g:xdg_open_silent*
-        Set to `1` to not show the command that's run.
-
 ==============================================================================
 MAPPINGS                                                   *xdg_open-mappings*
 

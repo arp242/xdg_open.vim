@@ -48,15 +48,31 @@ fun s:open(source, as_url)
 	return s:run(text)
 endfun
 
+let s:jobs = #{}
+fun! s:exit_cb(job, status) abort
+	let pid = job_info(a:job).process
+	if a:status isnot 0
+		echohl Error
+		echom printf('xdg-open: exit %d running %s', a:status, s:jobs[pid])
+		echohl None
+	endif
+	silent! call remove(s:jobs, pid)
+endfun
+
 " Run the command
 fun! s:run(path) abort
-	" TODO: run as job, rather than a shell command, and check if the exit code
-	"       is non-0.
-	let cmd = printf('%s %s &', g:xdg_open_command, shellescape(a:path))
-	if get(g:, 'xdg_open_silent', 1)
-		echom cmd
+	if exists('*job_start')
+		let cmd = [g:xdg_open_command, a:path]
+		let j = job_start(cmd->flatten(), #{
+			\ out_cb:  {ch, msg -> 0},
+			\ err_cb:  {ch, msg -> 0},
+			\ exit_cb: function('s:exit_cb'),
+		\ })
+		let s:jobs[job_info(j).process] = cmd
+	" TODO: can also add neovim support I guess.
+	else
+		call system(printf('%s %s &', g:xdg_open_command, shellescape(a:path)))
 	endif
-	call system(cmd)
 endfun
 
 " Get text to open
