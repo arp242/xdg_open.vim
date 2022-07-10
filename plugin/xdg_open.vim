@@ -41,28 +41,18 @@ endif
 
 " Open word under cursor or selection
 fun! xdg_open#open(source) abort
-	return s:open(a:source, 0)
+	return s:run(s:get_text(a:source))
 endfun
 
 " Like open(), but give an error if the word doesn't look like an url
 fun! xdg_open#open_url(source) abort
-	return s:open(a:source, 1)
-endfun
-
-fun s:open(source, strict)
 	let l:maybe_url = s:get_text(a:source)
 	if l:maybe_url !~ '^\w\{3,32}:\/\/'
-		if a:strict
-			echoerr 'Not an url: ' . l:maybe_url
-			return
-		else
-			let l:maybe_url = 'http://' . l:maybe_url
-		endif
+		echoerr 'Not an url: ' . l:maybe_url
+		return
 	endif
-
 	return s:run(l:maybe_url)
 endfun
-
 
 " Run the command
 fun! s:run(path) abort
