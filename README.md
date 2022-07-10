@@ -1,7 +1,8 @@
 [![This project is considered finished](https://img.shields.io/badge/Status-finished-green.svg)](https://arp242.net/status/finished)
 
-Re-implements netrw's `gx` command with a call to `xdg-open` (or a similar
-tool of your choosing).
+Re-implements netrw's `gx` command with a call to `xdg-open` (or a similar tool
+of your choosing). You can also use `gX` to always open a path as an URL (so
+that e.g. `example.com/path` opens `http://example.com/path`).
 
 This is especially useful if you're using dirvish or some other file-manager
 other than netrw.

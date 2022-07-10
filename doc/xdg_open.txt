@@ -59,6 +59,10 @@ See |expand()|.
 
 Don't map any keys when loading the plugin.
 
+*g:xdg_open_silent*                                 (bool, default: undefined)
+
+Set to `1` to not show the command that's run.
+
 ==============================================================================
 MAPPINGS                                                   *xdg_open-mappings*
 
@@ -67,6 +71,14 @@ gx                                 Try to open the file under the cursor.
 
                            *v_gx*
 {Visual}gx                         Try to open the current visual selection.
+                           *gX*
+gX                                 Try to open the file under the cursor as a
+                                   HTTP URL; prefixing the path with `http://`
+                                   if needed so that e.g. `example.com/path`
+                                   opens as `http://example.com/path`.
+                           *v_gX*
+{Visual}gX                         Try to open the current visual selection as
+                                   an URL.
 
 ==============================================================================
 FUNCTIONS                                                 *xdg_open-functions*
@@ -81,8 +93,8 @@ xdg_open#open({source})                                        *xdg_open#open*
 
 xdg_open#open_url({source})                                *xdg_open#open_url*
 
-    Like |xdg_open#open|, but displays an error if the input doesn't look like
-    an URL.
+    Like |xdg_open#open|, but prefix any path with "http://" if it doesn't
+    have it already, ensuring it always opens an URL.
 
 
 vim:tw=78:ts=8:ft=help:norl:expandtab
