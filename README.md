@@ -10,15 +10,16 @@ other than netrw.
 Is this fully compatible with netrw?
 ------------------------------------
 It should be for most purposes, but feature-for-feature (or bug-for-bug)
-compatibility was not a primary goal. Notable changes are:
+compatibility was not a goal. Notable changes are:
 
-- We just try to run `xdg-open`. No tricks and complicated fallbacks if that
-  fails.
+- We just try to run `xdg-open`; No complicated fallbacks if it fails.
 
 - The default is to get the `<cWORD>` instead of `<cfile>`. This works better
-  with urls which have query parameters.
+  with urls with query parameters, and allow using an expression to get the
+  text.
 
-- The shell command is run in the background. This is much more sane.
+- The command is run in the background as a job, which is much more convenient
+  and allows displaying an error only if the command fails.
 
 Can I disable netrw completely?
 -------------------------------

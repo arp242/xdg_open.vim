@@ -14,9 +14,11 @@ Is this fully compatible with netrw? ~
         - We just try to run {xdg-open}; No complicated fallbacks if it fails.
 
         - The default is to get the <cWORD> instead of <cfile>. This works
-          better with urls with query parameters.
+          better with urls with query parameters, and allow using an
+          expression to get the text.
 
-        - The shell command is run in the background.
+        - The command is run in the background as a job, which is much more
+          convenient and allows displaying an error only if the command fails.
 
 Can I disable netrw completely? ~
         To only disable gx-related functionality: >
