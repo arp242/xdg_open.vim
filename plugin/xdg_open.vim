@@ -39,6 +39,9 @@ endfun
 
 fun s:open(source, as_url)
 	let text = s:get_text(a:source)
+	if text is -1
+		return
+	endif
 	if a:as_url && text !~ '^\w\{3,32}:\/\/'
 		let text = 'http://' .. text
 	endif
@@ -47,7 +50,8 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
-	" TODO: Make & an option?
+	" TODO: run as job, rather than a shell command, and check if the exit code
+	"       is non-0.
 	let cmd = printf('%s %s &', g:xdg_open_command, shellescape(a:path))
 	if get(g:, 'xdg_open_silent', 1)
 		echom cmd
@@ -59,27 +63,40 @@ endfun
 fun s:get_text(source) abort
 	" Word under cursor
 	if a:source is 0
-		let l:text = expand(g:xdg_open_match)
+		if g:xdg_open_match[0] is '<'
+			let text = expand(g:xdg_open_match)
+		else
+			try
+				let text = eval(g:xdg_open_match)
+			catch
+				echohl Error
+				echom 'xdg-open: running g:xdg_open_match: ' .. v:exception
+				echohl None
+				return -1
+			endtry
+		endif
 	" Visual selection
 	elseif a:source is 1
-		let l:save = @@
-		normal! gvy
-		let l:text = substitute(@@, '\v(^\s*|\s*$)', '', 'g')
-		let @@ = l:save
-		return l:text
+		let save = @@
+		try
+			normal! gvy
+			let text = substitute(@@, '\v(^\s*|\s*$)', '', 'g')
+		finally
+			let @@ = save
+		endtry
+		return text
 	" Return as-is
 	else
-		let l:text = a:source
+		let text = a:source
 	endif
 
 	" Remove wrapping quotes etc.
-	for l:w in ['""', "''", '()', '[]', '{}', '**', '__']
-		if l:text[0] == l:w[0] && l:text[len(l:text)-1] == l:w[1]
-			let l:text = l:text[1:len(l:text)-2]
+	for w in ['""', "''", '()', '[]', '{}', '**', '__']
+		if text[0] == w[0] && text[len(text)-1] == w[1]
+			let text = text[1:len(text)-2]
 		endif
 	endfor
-
-	return l:text
+	return text
 endfun
 
 let &cpo = s:save_cpo

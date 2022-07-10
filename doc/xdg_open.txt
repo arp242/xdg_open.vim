@@ -4,64 +4,66 @@
 INTRODUCTION                                                        *xdg_open*
 
 Re-implements netrw's |gx| command with a call to {xdg-open} (or a similar
-tool of your choosing).
-
-This is especially useful if you're using dirvish or some other file-manager
-other than netrw.
+tool of your choosing). This is especially useful if you're using dirvish or
+some other file-manager other than netrw.
 
 Is this fully compatible with netrw? ~
-It should be for most purposes, but feature-for-feature (or bug-for-bug)
-compatibility was not a primary goal. Notable changes are:
+        It should be for most purposes, but feature-for-feature (or
+        bug-for-bug) compatibility was not a goal. Notable changes are:
 
-- We just try to run {xdg-open}. No tricks and complicated fallbacks if that
-  fails.
+        - We just try to run {xdg-open}; No complicated fallbacks if it fails.
 
-- The default is to get the <cWORD> instead of <cfile>. This works better with
-  urls which have query parameters.
+        - The default is to get the <cWORD> instead of <cfile>. This works
+          better with urls with query parameters.
 
-- The shell command is run in the background. This is much more sane.
+        - The shell command is run in the background.
 
 Can I disable netrw completely? ~
-- To only disable gx-related functionality: >
-  let g:netrw_nogx = 1
+        To only disable gx-related functionality: >
+                let g:netrw_nogx = 1
 <
-- To disable all of netrw: >
-  let g:loaded_netrw = 1
+        To disable all of netrw: >
+                let g:loaded_netrw = 1
 <
-- To disable the netrw doc files you need to remove the doc file at 
-  *$VIMRUNTIME/doc/pi_netrw.txt* and rebuild the help tags with: >
-  :helptags $VIMRUNTIME/doc
+        To disable the netrw doc files you need to remove the doc file at
+        *$VIMRUNTIME/doc/pi_netrw.txt* and rebuild the help tags with: >
+                :helptags $VIMRUNTIME/doc
 <
-  This has the advantage of not cluttering |:helpgrep| or tab completion.
-  
-  You will need write permissions here (e.g. run it as root). Unfortunately
-  you will nee to re-run this after every upgrade.
+        This has the advantage of not cluttering |:helpgrep| or tab
+        completion.
+
+        You will need write permissions here (e.g. run it as root).
+        Unfortunately you will nee to re-run this after every upgrade.
 
 What about plugins that depend on netrw? ~
-
-This plugin defines `netrw#BrowseX()`  and `netrw#NetrwBrowseX()`. Plugins
-that depend on it (such as fugitive.vim) should continue to work.
+        This plugin defines `netrw#BrowseX()`  and `netrw#NetrwBrowseX()`.
+        Plugins that depend on it (such as fugitive.vim) should continue to
+        work.
 
 
 ==============================================================================
 OPTIONS                                                     *xdg_open-options*
 
-*g:xdg_open_command*  (string, default: |g:netrw_browsex_viewer| or
-                       'xdg-open')
+*g:xdg_open_command*
+        Command to run; the file is appended automatically. The default is
+        |g:netrw_browsex_viewer| if it's set, or `'xdg-open'` if it's not.
 
-Command to run. The file is appended automatically.
+*g:xdg_open_match*
+        What text to use; if this starts with a `<` it's run through
+        |expand()|, otherwise it's taken as an expression and run with
+        |eval()|. The default is |g:netrw_gx| if it's set, or '<cWORD>' if
+        it's not.
 
-*g:xdg_open_match*                (string, default: |g:netrw_gx| or '<cWORD>')
+        For example to use the current line for |dirvish| files and <cWORD>
+        for everything else:
+>
+                let g:xdg_open_match = '&filetype == "dirvish" ? getline(".") : expand("<cWORD>")'
+<
+*g:xdg_open_no_map*
+        Set to `1` to not map any keys by default.
 
-See |expand()|.
-
-*g:xdg_open_no_map*                               (string, default: undefined)
-
-Don't map any keys when loading the plugin.
-
-*g:xdg_open_silent*                                 (bool, default: undefined)
-
-Set to `1` to not show the command that's run.
+*g:xdg_open_silent*
+        Set to `1` to not show the command that's run.
 
 ==============================================================================
 MAPPINGS                                                   *xdg_open-mappings*
@@ -85,16 +87,16 @@ FUNCTIONS                                                 *xdg_open-functions*
 
 xdg_open#open({source})                                        *xdg_open#open*
 
-    Valid values for the {source} parameter:
+        Open a path; valid values for the {source} parameter:
 
-    - 0: Use |expand()| on |g:xdg_open_match|.
-    - 1: Use the last visual selection.
-    - any other string: Use the string as-is.
+                0                     Use |g:xdg_open_match|
+                1                     Use the last visual selection
+                any other string      Use the string as-is
 
 xdg_open#open_url({source})                                *xdg_open#open_url*
 
-    Like |xdg_open#open|, but prefix any path with "http://" if it doesn't
-    have it already, ensuring it always opens an URL.
+        Like |xdg_open#open|, but prefix any path with "http://" if it doesn't
+        have it already, ensuring it always opens an URL.
 
 
 vim:tw=78:ts=8:ft=help:norl:expandtab
