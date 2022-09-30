@@ -1,8 +1,7 @@
-[![This project is considered finished](https://img.shields.io/badge/Status-finished-green.svg)](https://arp242.net/status/finished)
-
 Re-implements netrw's `gx` command with a call to `xdg-open` (or a similar tool
 of your choosing). You can also use `gX` to always open a path as an URL (so
-that e.g. `example.com/path` opens `http://example.com/path`).
+that e.g. `example.com/path` opens `http://example.com/path`, rather than a
+local path).
 
 This is especially useful if you're using dirvish or some other file-manager
 other than netrw.
@@ -12,10 +11,11 @@ Is this fully compatible with netrw?
 It should be for most purposes, but feature-for-feature (or bug-for-bug)
 compatibility was not a goal. Notable changes are:
 
-- We just try to run `xdg-open`; No complicated fallbacks if it fails.
+- Just try to run `xdg-open` (or another command of your choosing); no
+  complicated fallbacks if it fails.
 
 - The default is to get the `<cWORD>` instead of `<cfile>`. This works better
-  with urls with query parameters, and allow using an expression to get the
+  for URLs with query parameters. Also allow using an expression to get the
   text.
 
 - The command is run in the background as a job, which is much more convenient

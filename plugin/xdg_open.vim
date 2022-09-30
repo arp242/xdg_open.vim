@@ -42,9 +42,38 @@ fun s:open(source, as_url)
 	if text is -1
 		return
 	endif
+
+	" Markdown URLs like:
+	"   [label](example.com)
+	"   [label][ref]
+	"   [label]
+	if &ft == 'markdown'
+		let e = ''
+		if text =~ '^\[.\{}\](.\{})'
+			let e = matchlist(text, '](\(.\{}\))')[1]
+		elseif text =~ '^\[.\{}\]\[.\{}\]' || text =~ '^\[.\{}\]'
+			let ref = matchlist(text, '\(\[\([^\[]\{}\)\]\)\+')[2]
+			if ref != ''
+				let ref = '[' .. ref .. ']:'
+				let def = getline(1, '$')->filter({_, l -> l[: len(ref) - 1] ==# ref })
+				if len(def) > 0
+					let def = def[0]->split(':')[1:]->join(':')->trim()
+					if def != ''
+						let e = def
+					endif
+				endif
+			endif
+		endif
+		if e != ''
+			let text = e
+		endif
+	endif
+
 	if a:as_url && text !~ '^\w\{3,32}:\/\/'
 		let text = 'http://' .. text
 	endif
+
+	echo text
 	return s:run(text)
 endfun
 

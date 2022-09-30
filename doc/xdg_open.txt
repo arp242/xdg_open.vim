@@ -11,10 +11,10 @@ Is this fully compatible with netrw? ~
         It should be for most purposes, but feature-for-feature (or
         bug-for-bug) compatibility was not a goal. Notable changes are:
 
-        - We just try to run {xdg-open}; No complicated fallbacks if it fails.
+        - Just try to run {xdg-open}; no complicated fallbacks if it fails.
 
         - The default is to get the <cWORD> instead of <cfile>. This works
-          better with urls with query parameters, and allow using an
+          better for URLs with query parameters. Also allow using an
           expression to get the text.
 
         - The command is run in the background as a job, which is much more
@@ -38,8 +38,8 @@ Can I disable netrw completely? ~
         Unfortunately you will nee to re-run this after every upgrade.
 
 What about plugins that depend on netrw? ~
-        This plugin defines `netrw#BrowseX()`  and `netrw#NetrwBrowseX()`.
-        Plugins that depend on it (such as fugitive.vim) should continue to
+        This plugin defines `netrw#BrowseX()` and `netrw#NetrwBrowseX()` so
+        plugins that depend on it (such as fugitive.vim) should continue to
         work.
 
 
