@@ -57,10 +57,27 @@ OPTIONS                                                     *xdg_open-options*
         it's not.
 
         For example to use the current line for |dirvish| files and <cWORD>
-        for everything else:
+        for everything else use an expression inside a string:
 >
                 let g:xdg_open_match = '&filetype == "dirvish" ? getline(".") : expand("<cWORD>")'
 <
+        Or a more complex example which uses a function and can open GitHub
+        links like #123 (the logic to get the username and path may not be
+        correct; you get use |getcwd()| to do something better to fit your
+        needs).
+>
+                fun MyOpen()
+                    if &filetype == 'dirvish'
+                        return getline(".")
+                    elseif expand('<cWORD>') =~ '^#\d\+'
+                        return 'https://github.com/arp242/' .. expand('%:p:h:t') .. '/issues/' .. expand('<cword>')
+                    else
+                        return expand('<cWORD>')
+                    endif
+                endfun
+                let g:xdg_open_match = 'MyOpen()'
+<
+
 *g:xdg_open_no_map*
         Set to `1` to not map any keys by default.
 
