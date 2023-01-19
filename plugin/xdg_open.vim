@@ -23,6 +23,10 @@ if !exists('g:xdg_open_no_map') || empty(g:xdg_open_no_map)
 	xmap gx <Plug>(xdg-open-x)
 	nmap gX <Plug>(xdg-open-url-n)
 	xmap gX <Plug>(xdg-open-url-x)
+
+	" TODO: map mouse buttons too
+	" nmap <LeftMouse> <LeftMouse><Plug>(xdg-open-n)
+	" nnoremap <LeftMouse> :call win_gotoid(getmousepos()['winid'])<CR>
 endif
 
 
@@ -43,14 +47,19 @@ fun s:open(source, as_url)
 		return
 	endif
 
-	" Markdown URLs like:
-	"   [label](example.com)
-	"   [label][ref]
-	"   [label]
+	" Markdown URLs.
 	if &ft == 'markdown'
 		let e = ''
-		if text =~ '^\[.\{}\](.\{})'
+		" [label](example.com)
+		" TODO: we need the second check for cases like:o
+		"    [RFC 5730 - EPP](https://tools.ietf.org/html/rfc5730)
+		" where the <cWORD> is
+		"    EPP](https://tools.ietf.org/html/rfc5730)
+		" Ideally, "gx" should work anywhere in the URL, including on e.g.
+		" "[RFC" at the start.
+		if text =~ '^\[.\{}\](.\{})' || text =~ '^\<.\{}\](.\{})'
 			let e = matchlist(text, '](\(.\{}\))')[1]
+		" [label][ref] and [label]
 		elseif text =~ '^\[.\{}\]\[.\{}\]' || text =~ '^\[.\{}\]'
 			let ref = matchlist(text, '\(\[\([^\[]\{}\)\]\)\+')[2]
 			if ref != ''

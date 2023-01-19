@@ -111,8 +111,13 @@ xdg_open#open({source})                                        *xdg_open#open*
 
 xdg_open#open_url({source})                                *xdg_open#open_url*
 
-        Like |xdg_open#open|, but prefix any path with "http://" if it doesn't
-        have it already, ensuring it always opens an URL.
+        Like |xdg_open#open|, but ensure it always opens an URL by prefixing
+        any path with "http://" if it doesn't have a protocol already.
+
+xdg_open#is_path({text}, [url_only])                        *xdg_open#is_path*
+
+        Report if the {text} looks like a path or URL. If the optional
+        [url_only] is set then only report if it looks like an URL.
 
 
 vim:tw=78:ts=8:ft=help:norl:expandtab
