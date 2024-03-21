@@ -7,6 +7,7 @@ gx	xdg_open.txt	/*gx*
 v_gX	xdg_open.txt	/*v_gX*
 v_gx	xdg_open.txt	/*v_gx*
 xdg_open	xdg_open.txt	/*xdg_open*
+xdg_open#is_path	xdg_open.txt	/*xdg_open#is_path*
 xdg_open#open	xdg_open.txt	/*xdg_open#open*
 xdg_open#open_url	xdg_open.txt	/*xdg_open#open_url*
 xdg_open-functions	xdg_open.txt	/*xdg_open-functions*
