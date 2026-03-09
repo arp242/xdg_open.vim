@@ -145,7 +145,7 @@ fun s:get_text(source) abort
 	endif
 
 	" Remove trailing comma and full stop.
-	let text = substitute(text, '[,;.]$', '', '')
+	let text = substitute(text, '[,;:.]$', '', '')
 
 	" Remove wrapping quotes etc.
 	for w in ['""', "''", '()', '[]', '{}', '**', '__']
